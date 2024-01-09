@@ -1,8 +1,9 @@
 using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using student_final.Data;
-using student_final.Register.Services;
-using student_final.Register.Services.Interfaces;
+using student_final.Registers.Models;
+using student_final.Registers.Services;
+using student_final.Registers.Services.Interfaces;
 using student_final.Students.Repository;
 using student_final.Students.Repository.Interfaces;
 using student_final.Students.Services;
@@ -42,6 +43,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 #region REPOSITORIES
 
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<Register>();
 
 #endregion
 
@@ -49,7 +51,8 @@ builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
 builder.Services.AddScoped<IStudentCommandService, StudentCommandService>();
 builder.Services.AddScoped<IStudentQueryService, StudentQueryService>();
-builder.Services.AddScoped<IRegisterService, RegisterService>();
+builder.Services.AddScoped<IRegisterQueryService, RegisterQueryService>();
+builder.Services.AddScoped<IRegisterCommandService, RegisterCommandService>();
 
 #endregion
 
