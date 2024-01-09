@@ -101,3 +101,4 @@ D:\mycode\asp.net\student-final\student-final\obj\Debug\net7.0\refint\student-fi
 D:\mycode\asp.net\student-final\student-final\obj\Debug\net7.0\student-final.pdb
 D:\mycode\asp.net\student-final\student-final\obj\Debug\net7.0\student-final.genruntimeconfig.cache
 D:\mycode\asp.net\student-final\student-final\obj\Debug\net7.0\ref\student-final.dll
+D:\mycode\asp.net\student-final\student-final\obj\Debug\net7.0\student-final.sourcelink.json

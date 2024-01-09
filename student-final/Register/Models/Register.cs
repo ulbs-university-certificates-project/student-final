@@ -4,7 +4,6 @@ namespace student_final.Register.Models
 {
     internal class Register
     {
-
         private int _number;
         private string _date;
         private string _firstName;
@@ -24,7 +23,6 @@ namespace student_final.Register.Models
             "cazare camin"
         };
 
-        //incerc sa pun numarul adeverintei
         public Register()
         {
             _number = 1;
@@ -38,62 +36,30 @@ namespace student_final.Register.Models
 
         public Register(string firstName, string lastName, int studyYear, int programmeIndex, int reasonIndex, ExcelReadAndWriteClass? xl = null)
         {
-            // in cazul in care tabelul nu are nicio valoare inserata (doar header-ul tabelului)
-            if (xl!.CountRows() <= 1 || xl == null!)
+            if (xl!.CountRows() <= 1 || xl == null!) _number = 1;
+            else _number = GetLastCertificateNumber(xl) + 1;
+            
+            _date = GetDate();
+            _firstName = firstName;
+            _lastName = lastName;
+            _studyYear = studyYear;
+
+            if (programmeIndex < _availableProgrammes.LongCount())
             {
-                _number = 1;
-                _date = GetDate();
-                _firstName = firstName;
-                _lastName = lastName;
-                _studyYear = studyYear;
-
-                // programme selection by given index
-                if (programmeIndex < _availableProgrammes.LongCount())
-                {
-                    _programme = _availableProgrammes[programmeIndex];
-                }
-                else
-                {
-                    _programme = "";
-                }
-
-                // reason selection by given index
-                if (reasonIndex < _availableReasons.LongCount())
-                {
-                    _reason = _availableReasons[reasonIndex];
-                }
-                else
-                {
-                    _reason = "";
-                }
+                _programme = _availableProgrammes[programmeIndex];
             }
-            else // daca tabelul are deja valori puse in tabel
+            else
             {
-                _number = GetLastCertificateNumber(xl) + 1;
-                _date = GetDate();
-                _firstName = firstName;
-                _lastName = lastName;
-                _studyYear = studyYear;
+                _programme = "";
+            }
 
-                // programme selection by given index
-                if (programmeIndex < _availableProgrammes.LongCount())
-                {
-                    _programme = _availableProgrammes[programmeIndex];
-                }
-                else
-                {
-                    _programme = "";
-                }
-
-                // reason selection by given index
-                if (reasonIndex < _availableReasons.LongCount())
-                {
-                    _reason = _availableReasons[reasonIndex];
-                }
-                else
-                {
-                    _reason = "";
-                }
+            if (reasonIndex < _availableReasons.LongCount())
+            {
+                _reason = _availableReasons[reasonIndex];
+            }
+            else
+            {
+                _reason = "";
             }
         }
 

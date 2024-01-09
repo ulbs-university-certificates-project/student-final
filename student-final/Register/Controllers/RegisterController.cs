@@ -20,7 +20,6 @@ public class RegisterController : RegisterApiController
         _logger = logger;
     }
 
-
     public override void RequestShowCells()
     {
         Ok(_service.LogCells());
