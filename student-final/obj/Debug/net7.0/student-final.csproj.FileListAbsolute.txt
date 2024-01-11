@@ -107,3 +107,6 @@ D:\mycode\asp.net\student-final\student-final\bin\Debug\net7.0\runtimes\win\lib\
 D:\mycode\asp.net\student-final\student-final\bin\Debug\net7.0\Newtonsoft.Json.dll
 D:\mycode\asp.net\student-final\student-final\bin\Debug\net7.0\zxing.dll
 D:\mycode\asp.net\student-final\student-final\bin\Debug\net7.0\ZXing.Windows.Compatibility.dll
+D:\mycode\asp.net\student-final\student-final\obj\Debug\net7.0\student-final.sourcelink.json
+D:\mycode\asp.net\student-final\student-final\bin\Debug\net7.0\DocumentFormat.OpenXml.dll
+D:\mycode\asp.net\student-final\student-final\bin\Debug\net7.0\DocumentFormat.OpenXml.Framework.dll

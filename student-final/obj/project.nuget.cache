@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "/j08QGeO13qHq0uUeS1vQdLBjpCw6gQ8dLEGKwrjCz7rkIzsxygBt2g6cFXU04w5aCTWH7cIzMzM9fObysxdHg==",
+  "dgSpecHash": "vtpPWprJAuF1wbD2gy4kNgBmP9U34+35gJQKtr3XhQ/b2BwO0HOXRxqnfvPZR0Em4oBvWw/h+QnPSI3t7QGyPw==",
   "success": true,
   "projectFilePath": "D:\\mycode\\asp.net\\student-final\\student-final\\student-final.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\qflor\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\qflor\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "C:\\Users\\qflor\\.nuget\\packages\\documentformat.openxml\\3.0.1\\documentformat.openxml.3.0.1.nupkg.sha512",
+    "C:\\Users\\qflor\\.nuget\\packages\\documentformat.openxml.framework\\3.0.1\\documentformat.openxml.framework.3.0.1.nupkg.sha512",
     "C:\\Users\\qflor\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\qflor\\.nuget\\packages\\epplus\\7.0.5\\epplus.7.0.5.nupkg.sha512",
     "C:\\Users\\qflor\\.nuget\\packages\\epplus.interfaces\\6.1.1\\epplus.interfaces.6.1.1.nupkg.sha512",

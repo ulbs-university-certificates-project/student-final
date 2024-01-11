@@ -2,6 +2,7 @@ using System.Drawing;
 using System.Linq.Expressions;
 using AutoMapper;
 using Newtonsoft.Json;
+using student_final.Certificates.Models;
 using student_final.QR.Services.Interfaces;
 using student_final.Registers.Models;
 using student_final.System.Constants;
@@ -14,9 +15,8 @@ namespace student_final.QR.Services;
 public class QRCommandService : IQRCommandService
 {
     private BarcodeWriter<Bitmap> _writer;
-    private IMapper _mapper;
-
-    public QRCommandService(IMapper mapper)
+    
+    public QRCommandService()
     {
         QrCodeEncodingOptions options = new QrCodeEncodingOptions
         {
@@ -31,13 +31,13 @@ public class QRCommandService : IQRCommandService
             Renderer = new BitmapRenderer(),
             Options = options
         };
-        
-        _mapper = mapper;
     }
 
     public string GenerateAndSaveQRCode(Certificate certificate)
     {
-        Bitmap qrCode = _writer.WriteAsBitmap(JsonConvert.SerializeObject(certificate));
+        string jsonString = JsonConvert.SerializeObject(certificate);
+        
+        Bitmap qrCode = _writer.WriteAsBitmap(jsonString);
         string qrName = GenerateRandomQRName();
         
         qrCode.Save(Constants.QR_OUTPUT_PATH + qrName);

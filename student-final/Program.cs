@@ -1,5 +1,7 @@
 using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
+using student_final.Certificates.Services;
+using student_final.Certificates.Services.Interfaces;
 using student_final.Data;
 using student_final.QR.Services;
 using student_final.QR.Services.Interfaces;
@@ -56,6 +58,7 @@ builder.Services.AddScoped<IStudentQueryService, StudentQueryService>();
 builder.Services.AddScoped<IRegisterQueryService, RegisterQueryService>();
 builder.Services.AddScoped<IRegisterCommandService, RegisterCommandService>();
 builder.Services.AddScoped<IQRCommandService, QRCommandService>();
+builder.Services.AddScoped<ICertificateCommandService, CertificateCommandService>();
 
 #endregion
 

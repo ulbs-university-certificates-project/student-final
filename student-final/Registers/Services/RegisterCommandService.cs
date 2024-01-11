@@ -1,10 +1,11 @@
+using student_final.Certificates.DTOs;
+using student_final.Certificates.Models;
 using student_final.Registers.Models;
 using student_final.Registers.Services.Interfaces;
 using student_final.Students.Models;
 using student_final.Students.Repository.Interfaces;
 using student_final.System.Constants;
 using student_final.System.Exceptions;
-using student_final.Registers.DTOs;
 
 namespace student_final.Registers.Services;
 

@@ -1,5 +1,6 @@
 using System.Globalization;
 using OfficeOpenXml;
+using student_final.Certificates.Models;
 using student_final.Students.Models;
 using student_final.System.Constants;
 
@@ -29,7 +30,7 @@ public class Register
             Certificate certificate = new Certificate
             {
                 NrAdeverinta = Convert.ToInt32(_worksheet.Cells[i, 1].Value),
-                Data = DateTime.ParseExact(_worksheet.Cells[i, 2].Value.ToString()!, Constants.DATE_FORMAT, CultureInfo.InvariantCulture),
+                Data = DateTime.ParseExact(_worksheet.Cells[i, 2].Value.ToString()!, Constants.DATE_FORMAT_SLASH, CultureInfo.InvariantCulture),
                 Nume = _worksheet.Cells[i, 3].Value.ToString()!,
                 An = Convert.ToInt32(_worksheet.Cells[i, 4].Value),
                 Sectie = _worksheet.Cells[i, 5].Value.ToString()!,
@@ -73,7 +74,7 @@ public class Register
         int newRow = _worksheet.Dimension.Rows + 1;
 
         _worksheet.Cells[newRow, 1].Value = certificate.NrAdeverinta;
-        _worksheet.Cells[newRow, 2].Value = certificate.Data.ToString(Constants.DATE_FORMAT);
+        _worksheet.Cells[newRow, 2].Value = certificate.Data.ToString(Constants.DATE_FORMAT_SLASH);
         _worksheet.Cells[newRow, 3].Value = certificate.Nume;
         _worksheet.Cells[newRow, 4].Value = certificate.An;
         _worksheet.Cells[newRow, 5].Value = certificate.Sectie;

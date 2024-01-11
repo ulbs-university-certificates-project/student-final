@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using student_final.Certificates.Models;
 using student_final.QR.Controllers.Interfaces;
 using student_final.QR.Services.Interfaces;
 using student_final.Registers.Models;
