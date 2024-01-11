@@ -18,17 +18,21 @@ public class QRCommandService : IQRCommandService
 
     public QRCommandService(IMapper mapper)
     {
-        _writer = new BarcodeWriter();
-        _mapper = mapper;
-        
-        _writer.Format = BarcodeFormat.QR_CODE;
-        _writer.Renderer = new BitmapRenderer();
-        _writer.Options = new QrCodeEncodingOptions
+        QrCodeEncodingOptions options = new QrCodeEncodingOptions
         {
             Width = 300,
             Height = 300,
             Margin = 0
         };
+
+        _writer = new BarcodeWriter
+        {
+            Format = BarcodeFormat.QR_CODE,
+            Renderer = new BitmapRenderer(),
+            Options = options
+        };
+        
+        _mapper = mapper;
     }
 
     public string GenerateAndSaveQRCode(Certificate certificate)
