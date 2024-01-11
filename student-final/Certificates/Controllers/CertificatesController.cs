@@ -1,24 +1,34 @@
 using Microsoft.AspNetCore.Mvc;
 using student_final.Certificates.Controllers.Interfaces;
+using student_final.Certificates.DTOs;
 using student_final.Certificates.Models;
 using student_final.Certificates.Services.Interfaces;
+using student_final.Emails.Services.Interfaces;
+using student_final.Registers.Services.Interfaces;
 using student_final.System.Constants;
 
 namespace student_final.Certificates.Controllers;
 
 public class CertificatesController : CertificatesApiController
 {
-    private ICertificateCommandService _commandService;
+    private IDocumentsCommandService _documentsCommandService;
+    private IRegisterCommandService _registerCommandService;
+    private IEmailSenderCommandService _emailSenderCommandService;
 
-    public CertificatesController(ICertificateCommandService commandService)
+    public CertificatesController(IDocumentsCommandService documentsCommandService, 
+        IRegisterCommandService registerCommandService,
+        IEmailSenderCommandService emailSenderCommandService)
     {
-        _commandService = commandService;
+        _documentsCommandService = documentsCommandService;
+        _registerCommandService = registerCommandService;
+        _emailSenderCommandService = emailSenderCommandService;
     }
 
-    public override ActionResult<string> CreateCertificateDocument(Certificate certificate)
+    public override async Task<ActionResult<string>> RequestUserCertificate(CertificateRequest request)
     {
-        string certificateName = _commandService.CreateCertificateDocument(certificate);
-
-        return Ok(Constants.CERTIFICATE_DOCUMENT_CREATED + $" : ${certificateName}");
+        Certificate certificate = await _registerCommandService.RequestCertificate(request);
+        string certificateName = _documentsCommandService.CreateCertificateDocument(certificate);
+        await _emailSenderCommandService.SendEmailAsync(certificateName);
+        return Ok(Constants.EMAIL_SENT);
     }
 }

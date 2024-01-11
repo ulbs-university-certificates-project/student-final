@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using student_final.Certificates.Services;
 using student_final.Certificates.Services.Interfaces;
 using student_final.Data;
+using student_final.Emails.Services;
+using student_final.Emails.Services.Interfaces;
 using student_final.QR.Services;
 using student_final.QR.Services.Interfaces;
 using student_final.Registers.Models;
@@ -58,7 +60,8 @@ builder.Services.AddScoped<IStudentQueryService, StudentQueryService>();
 builder.Services.AddScoped<IRegisterQueryService, RegisterQueryService>();
 builder.Services.AddScoped<IRegisterCommandService, RegisterCommandService>();
 builder.Services.AddScoped<IQRCommandService, QRCommandService>();
-builder.Services.AddScoped<ICertificateCommandService, CertificateCommandService>();
+builder.Services.AddScoped<IDocumentsCommandService, DocumentsCommandService>();
+builder.Services.AddScoped<IEmailSenderCommandService, EmailSenderCommandService>();
 
 #endregion
 

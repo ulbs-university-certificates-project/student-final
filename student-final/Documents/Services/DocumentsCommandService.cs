@@ -3,24 +3,35 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using student_final.Certificates.Models;
 using student_final.System.Constants;
 using student_final.Certificates.Services.Interfaces;
+using student_final.QR.Services.Interfaces;
 
 namespace student_final.Certificates.Services;
 
-public class CertificateCommandService : ICertificateCommandService
+public class DocumentsCommandService : IDocumentsCommandService
 {
+    private IQRCommandService _qrCommandService;
+
+    public DocumentsCommandService(IQRCommandService qrCommandService)
+    {
+        _qrCommandService = qrCommandService;
+    }
+    
     public string CreateCertificateDocument(Certificate certificate)
     {
         string certificateName = CreateUninterpolatedCertificateAfterTemplate(certificate.Nume);
+        string qrName = _qrCommandService.GenerateAndSaveQRCode(certificate);
         
-        InterpolateTemplate(certificateName, certificate);
+        InterpolateTemplate(certificateName, qrName, certificate);
 
         return certificateName;
     }
     
     #region PRIVATE_METHODS
     
-    private void InterpolateTemplate(string certificateName, Certificate certificate)
+    private void InterpolateTemplate(string certificateName, string qrName, Certificate certificate)
     {
+        
+        
         Dictionary<string, string> fieldMap = new Dictionary<string, string>
         {
             { "NRADEVERINTA", $"{certificate.NrAdeverinta}" },
@@ -47,20 +58,22 @@ public class CertificateCommandService : ICertificateCommandService
             }
         }
         
+        
+        
         document.MainDocumentPart.Document.Save();
         document.Dispose();
     }
     
     private string CreateUninterpolatedCertificateAfterTemplate(string studentName)
     {
-        string certificateName = GenerateCertificateName(studentName);
+        string certificateName = GenerateDocumentName(studentName);
         
         File.Copy(Constants.CERTIFICATE_TEMPLATE, Constants.CERTIFICATE_OUTPUT_PATH + certificateName);
 
         return certificateName;
     }
 
-    private string GenerateCertificateName(string studentName)
+    private string GenerateDocumentName(string studentName)
     {
         string certificateName = $"Certificate - {studentName}.docx";
         

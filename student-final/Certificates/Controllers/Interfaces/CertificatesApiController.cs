@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using student_final.Certificates.DTOs;
 using student_final.Certificates.Models;
 
 namespace student_final.Certificates.Controllers.Interfaces;
@@ -8,7 +9,6 @@ namespace student_final.Certificates.Controllers.Interfaces;
 public abstract class CertificatesApiController:ControllerBase
 {
     [HttpPost("create")]
-    [ProducesResponseType(statusCode:201,type:typeof(string))]
-    public abstract ActionResult<string> CreateCertificateDocument(Certificate certificate);
-    
+    [ProducesResponseType(statusCode: 201, type: typeof(string))]
+    public abstract Task<ActionResult<string>> RequestUserCertificate(CertificateRequest request);
 }

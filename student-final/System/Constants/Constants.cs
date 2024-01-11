@@ -26,10 +26,19 @@ public static class Constants
     // PATHS
     public const string EXCEL_REGISTER_PATH = @"D:\mycode\asp.net\student-final\student-final\Registers\register.xlsx";
     public const string QR_OUTPUT_PATH = @"D:\mycode\asp.net\student-final\student-final\QR\Generated\";
-    public const string CERTIFICATE_OUTPUT_PATH = @"D:\mycode\asp.net\student-final\student-final\Certificates\Generated\";
-    public const string CERTIFICATE_TEMPLATE = @"D:\mycode\asp.net\student-final\student-final\Certificates\Templates\certificate-template.docx";
+    public const string CERTIFICATE_OUTPUT_PATH = @"D:\mycode\asp.net\student-final\student-final\Documents\Generated\";
+    public const string CERTIFICATE_TEMPLATE = @"D:\mycode\asp.net\student-final\student-final\Documents\Templates\certificate-template.docx";
     
     // DATE FORMATS
     public const string DATE_FORMAT_SLASH = "dd/MM/yyyy";
     public const string DATE_FORMAT_DOT = "dd.MM.yyyy";
+    
+    // EMAIL SENDER
+    public const string EMAIL_SMTP_SERVER = "smtp-mail.outlook.com";
+    public const int EMAIL_SMTP_PORT = 587;
+    public const string EMAIL_SENDER_ADDRESS = "ulbsadeverinte@outlook.com";
+    public const string EMAIL_SENDER_PASSWORD = "pa.ro/la";
+    
+    // EMAIL CONTROLLER
+    public const string EMAIL_SENT = "Email successfully sent!";
 }

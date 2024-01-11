@@ -36,8 +36,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Certificates\Generated\" />
-      <Folder Include="Certificates\Templates\" />
+      <Folder Include="Documents\Generated\" />
       <Folder Include="QR\Generated\" />
     </ItemGroup>
 
