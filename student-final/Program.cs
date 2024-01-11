@@ -1,8 +1,8 @@
 using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
-using student_final.Certificates.Services;
-using student_final.Certificates.Services.Interfaces;
 using student_final.Data;
+using student_final.Documents.Services;
+using student_final.Documents.Services.Interfaces;
 using student_final.Emails.Services;
 using student_final.Emails.Services.Interfaces;
 using student_final.QR.Services;

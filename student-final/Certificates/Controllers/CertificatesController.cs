@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using student_final.Certificates.Controllers.Interfaces;
 using student_final.Certificates.DTOs;
 using student_final.Certificates.Models;
-using student_final.Certificates.Services.Interfaces;
+using student_final.Documents.Services.Interfaces;
 using student_final.Emails.Services.Interfaces;
 using student_final.Registers.Services.Interfaces;
 using student_final.System.Constants;
@@ -28,6 +28,7 @@ public class CertificatesController : CertificatesApiController
     {
         Certificate certificate = await _registerCommandService.RequestCertificate(request);
         string certificateName = _documentsCommandService.CreateCertificateDocument(certificate);
+        
         await _emailSenderCommandService.SendEmailAsync(certificateName);
         return Ok(Constants.EMAIL_SENT);
     }

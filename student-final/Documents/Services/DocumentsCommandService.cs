@@ -1,11 +1,11 @@
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
 using student_final.Certificates.Models;
-using student_final.System.Constants;
-using student_final.Certificates.Services.Interfaces;
+using student_final.Documents.Services.Interfaces;
 using student_final.QR.Services.Interfaces;
+using student_final.System.Constants;
+using Xceed.Document.NET;
+using Xceed.Words.NET;
 
-namespace student_final.Certificates.Services;
+namespace student_final.Documents.Services;
 
 public class DocumentsCommandService : IDocumentsCommandService
 {
@@ -22,6 +22,7 @@ public class DocumentsCommandService : IDocumentsCommandService
         string qrName = _qrCommandService.GenerateAndSaveQRCode(certificate);
         
         InterpolateTemplate(certificateName, qrName, certificate);
+        _qrCommandService.DeleteQRCode(qrName);
 
         return certificateName;
     }
@@ -30,8 +31,6 @@ public class DocumentsCommandService : IDocumentsCommandService
     
     private void InterpolateTemplate(string certificateName, string qrName, Certificate certificate)
     {
-        
-        
         Dictionary<string, string> fieldMap = new Dictionary<string, string>
         {
             { "NRADEVERINTA", $"{certificate.NrAdeverinta}" },
@@ -41,27 +40,38 @@ public class DocumentsCommandService : IDocumentsCommandService
             { "AN", $"{certificate.An}" },
             { "MOTIV", $"{certificate.Motiv}" }
         };
-        
-        WordprocessingDocument document =
-            WordprocessingDocument.Open(Constants.CERTIFICATE_OUTPUT_PATH + certificateName, true);
 
-        Body body = document.MainDocumentPart!.Document.Body!;
-
-        foreach (Text text in body.Descendants<Text>())
+        using (DocX document = DocX.Load(Constants.CERTIFICATE_OUTPUT_PATH + certificateName))
         {
-            foreach (string field in fieldMap.Keys)
+            // Replacing fields (nr. adeverinta, nume, etc.)
+            foreach (Paragraph paragraph in document.Paragraphs)
             {
-                if (text.Text.Contains($"{field}"))
+                foreach (string field in fieldMap.Keys)
                 {
-                    text.Text = text.Text.Replace($"{field}", fieldMap.GetValueOrDefault(field));
+                    StringReplaceTextOptions options = new StringReplaceTextOptions
+                    {
+                        SearchValue = $"[{field}]",
+                        NewValue = fieldMap.GetValueOrDefault(field)
+                    };
+                    
+                    // Using StringReplaceTextOptions because ReplaceText() with multiple parameters is obsolete.
+                    paragraph.ReplaceText(options);
                 }
             }
+        
+            // Inserting QR Code
+            var qrParagraph = document.Paragraphs.FirstOrDefault(p => p.Text.Contains("[QR]"))!;
+        
+            qrParagraph.RemoveText(0); // 0 = Starting index (Removes (text length - index) characters)
+        
+            Image image = document.AddImage(Constants.QR_OUTPUT_PATH + qrName);
+            Picture picture = image.CreatePicture(100, 100);
+        
+            qrParagraph.InsertPicture(picture);
+        
+            // Saving and closing document
+            document.SaveAs(Constants.CERTIFICATE_OUTPUT_PATH + certificateName);
         }
-        
-        
-        
-        document.MainDocumentPart.Document.Save();
-        document.Dispose();
     }
     
     private string CreateUninterpolatedCertificateAfterTemplate(string studentName)
