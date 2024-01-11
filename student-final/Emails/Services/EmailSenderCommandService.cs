@@ -19,12 +19,16 @@ public class EmailSenderCommandService : IEmailSenderCommandService
         };
     }
 
-    public Task SendEmailAsync(string certificateName)
+    public async Task SendEmailAsync(string certificateName)
     {
         MailMessage mail = new MailMessage(from: Constants.EMAIL_SENDER_ADDRESS, to: "qflorescucristian@gmail.com");
         mail.Subject = certificateName;
-        mail.Attachments.Add(new Attachment(Constants.CERTIFICATE_OUTPUT_PATH + certificateName));
 
-        return _client.SendMailAsync(mail);
+        using (Attachment document = new Attachment(Constants.DOCUMENT_OUTPUT_PATH + certificateName))
+        {
+            mail.Attachments.Add(document);
+            
+            await _client.SendMailAsync(mail);
+        }
     }
 }

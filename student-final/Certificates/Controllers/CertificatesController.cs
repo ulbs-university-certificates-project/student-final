@@ -30,6 +30,7 @@ public class CertificatesController : CertificatesApiController
         string certificateName = _documentsCommandService.CreateCertificateDocument(certificate);
         
         await _emailSenderCommandService.SendEmailAsync(certificateName);
+        _documentsCommandService.DeleteCertificateDocument(certificateName);
         return Ok(Constants.EMAIL_SENT);
     }
 }

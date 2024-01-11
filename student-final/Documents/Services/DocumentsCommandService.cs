@@ -27,6 +27,11 @@ public class DocumentsCommandService : IDocumentsCommandService
         return certificateName;
     }
     
+    public void DeleteCertificateDocument(string certificateName)
+    {
+        File.Delete(Constants.DOCUMENT_OUTPUT_PATH + certificateName);
+    }
+    
     #region PRIVATE_METHODS
     
     private void InterpolateTemplate(string certificateName, string qrName, Certificate certificate)
@@ -41,7 +46,7 @@ public class DocumentsCommandService : IDocumentsCommandService
             { "MOTIV", $"{certificate.Motiv}" }
         };
 
-        using (DocX document = DocX.Load(Constants.CERTIFICATE_OUTPUT_PATH + certificateName))
+        using (DocX document = DocX.Load(Constants.DOCUMENT_OUTPUT_PATH + certificateName))
         {
             // Replacing fields (nr. adeverinta, nume, etc.)
             foreach (Paragraph paragraph in document.Paragraphs)
@@ -70,7 +75,7 @@ public class DocumentsCommandService : IDocumentsCommandService
             qrParagraph.InsertPicture(picture);
         
             // Saving and closing document
-            document.SaveAs(Constants.CERTIFICATE_OUTPUT_PATH + certificateName);
+            document.SaveAs(Constants.DOCUMENT_OUTPUT_PATH + certificateName);
         }
     }
     
@@ -78,7 +83,7 @@ public class DocumentsCommandService : IDocumentsCommandService
     {
         string certificateName = GenerateDocumentName(studentName);
         
-        File.Copy(Constants.CERTIFICATE_TEMPLATE, Constants.CERTIFICATE_OUTPUT_PATH + certificateName);
+        File.Copy(Constants.DOCUMENT_TEMPLATE, Constants.DOCUMENT_OUTPUT_PATH + certificateName);
 
         return certificateName;
     }
@@ -87,7 +92,7 @@ public class DocumentsCommandService : IDocumentsCommandService
     {
         string certificateName = $"Certificate - {studentName}.docx";
         
-        if (!File.Exists(Constants.CERTIFICATE_OUTPUT_PATH + certificateName)) 
+        if (!File.Exists(Constants.DOCUMENT_OUTPUT_PATH + certificateName)) 
             return certificateName;
 
         int index = 1;
@@ -95,7 +100,7 @@ public class DocumentsCommandService : IDocumentsCommandService
         {
             certificateName = $"Certificate - {studentName} ({index}).docx";
             index++;
-        } while (File.Exists(Constants.CERTIFICATE_OUTPUT_PATH + certificateName));
+        } while (File.Exists(Constants.DOCUMENT_OUTPUT_PATH + certificateName));
         
         return certificateName;
     }

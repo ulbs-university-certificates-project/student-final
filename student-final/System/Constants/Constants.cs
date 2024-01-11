@@ -26,8 +26,8 @@ public static class Constants
     // PATHS
     public const string EXCEL_REGISTER_PATH = @"D:\mycode\asp.net\student-final\student-final\Registers\register.xlsx";
     public const string QR_OUTPUT_PATH = @"D:\mycode\asp.net\student-final\student-final\QR\Generated\";
-    public const string CERTIFICATE_OUTPUT_PATH = @"D:\mycode\asp.net\student-final\student-final\Documents\Generated\";
-    public const string CERTIFICATE_TEMPLATE = @"D:\mycode\asp.net\student-final\student-final\Documents\Templates\certificate-template.docx";
+    public const string DOCUMENT_OUTPUT_PATH = @"D:\mycode\asp.net\student-final\student-final\Documents\Generated\";
+    public const string DOCUMENT_TEMPLATE = @"D:\mycode\asp.net\student-final\student-final\Documents\Templates\certificate-template.docx";
     
     // DATE FORMATS
     public const string DATE_FORMAT_SLASH = "dd/MM/yyyy";
