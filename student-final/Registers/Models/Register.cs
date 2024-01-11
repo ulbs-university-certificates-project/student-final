@@ -18,15 +18,15 @@ public class Register
         GetLastId();
     }
 
-    public IEnumerable<CertificateObject> GetCertificates()
+    public IEnumerable<Certificate> GetCertificates()
     {
-        List<CertificateObject> certificateObjects = new List<CertificateObject>();
+        List<Certificate> certificateObjects = new List<Certificate>();
 
         int rowCount = _worksheet.Dimension.Rows;
         
         for (int i = 2; i <= rowCount; i++)
         {
-            CertificateObject certificateObject = new CertificateObject
+            Certificate certificate = new Certificate
             {
                 NrAdeverinta = Convert.ToInt32(_worksheet.Cells[i, 1].Value),
                 Data = DateTime.ParseExact(_worksheet.Cells[i, 2].Value.ToString()!, Constants.DATE_FORMAT, CultureInfo.InvariantCulture),
@@ -36,23 +36,23 @@ public class Register
                 Motiv = _worksheet.Cells[i, 6].Value.ToString()!
             };  
             
-            certificateObjects.Add(certificateObject);
+            certificateObjects.Add(certificate);
         }
 
         return certificateObjects;
     }
     
-    public CertificateObject GetCertificateByNrAdeverinta(int nrAdeverinta)
+    public Certificate GetCertificateByNrAdeverinta(int nrAdeverinta)
     {
-        List<CertificateObject> certificates = GetCertificates().ToList();
+        List<Certificate> certificates = GetCertificates().ToList();
 
         return certificates.FirstOrDefault(certificate => certificate.NrAdeverinta == nrAdeverinta)!;
     }
 
-    public CertificateObject CreateCertificate(Student student, string motiv)
+    public Certificate CreateCertificate(Student student, string motiv)
     {
         _lastId++;
-        CertificateObject certificateObject = new CertificateObject
+        Certificate certificate = new Certificate
         {
             NrAdeverinta = _lastId,
             Data = DateTime.Now,
@@ -62,13 +62,13 @@ public class Register
             Motiv = motiv
         };
         
-        InsertRow(certificateObject);
-        return certificateObject;
+        InsertRow(certificate);
+        return certificate;
     }
     
     #region PRIVATE_METHODS
     
-    private void InsertRow(CertificateObject certificate)
+    private void InsertRow(Certificate certificate)
     {
         int newRow = _worksheet.Dimension.Rows + 1;
 

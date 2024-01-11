@@ -20,7 +20,7 @@ public class RegisterCommandService : IRegisterCommandService
     }
 
 
-    public async Task<CertificateObject> RequestCertificate(CertificateRequest request)
+    public async Task<Certificate> RequestCertificate(CertificateRequest request)
     {
         Student student = await _studentRepository.GetByNrMatricolAsync(request.NrMatricol);
 
@@ -29,7 +29,7 @@ public class RegisterCommandService : IRegisterCommandService
             throw new ItemDoesNotExist(Constants.STUDENT_DOES_NOT_EXIST);
         }
 
-        CertificateObject certificate = _register.CreateCertificate(student, request.Motiv);
+        Certificate certificate = _register.CreateCertificate(student, request.Motiv);
         return certificate;
     }
 }

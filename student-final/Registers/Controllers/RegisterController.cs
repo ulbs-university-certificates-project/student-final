@@ -23,12 +23,12 @@ public class RegisterController : RegisterApiController
         _logger = logger;
     }
 
-    public override ActionResult<IEnumerable<CertificateObject>> GetCertificates()
+    public override ActionResult<IEnumerable<Certificate>> GetCertificates()
     {
         _logger.LogInformation("Rest request: Get all certificates.");
         try
         {
-            IEnumerable<CertificateObject> certificates = _queryService.GetCertificates();
+            IEnumerable<Certificate> certificates = _queryService.GetCertificates();
 
             return Ok(certificates);
         }
@@ -39,12 +39,12 @@ public class RegisterController : RegisterApiController
         }
     }
 
-    public override ActionResult<CertificateObject> GetCertificateByNrAdeverinta(int nrAdeverinta)
+    public override ActionResult<Certificate> GetCertificateByNrAdeverinta(int nrAdeverinta)
     {
         _logger.LogInformation($"Rest request: Get certificate with nr. adeverinta {nrAdeverinta}.");
         try
         {
-            CertificateObject certificate = _queryService.GetCertificateByNrAdeverinta(nrAdeverinta);
+            Certificate certificate = _queryService.GetCertificateByNrAdeverinta(nrAdeverinta);
 
             return Ok(certificate);
         }
@@ -55,12 +55,12 @@ public class RegisterController : RegisterApiController
         }
     }
 
-    public override async Task<ActionResult<CertificateObject>> RequestCertificate(CertificateRequest request)
+    public override async Task<ActionResult<Certificate>> RequestCertificate(CertificateRequest request)
     {
         _logger.LogInformation($"Rest request: Request create certificate :\n{request}");
         try
         {
-            CertificateObject response = await _commandService.RequestCertificate(request);
+            Certificate response = await _commandService.RequestCertificate(request);
 
             return Created(Constants.CERTIFICATE_CREATED, response);
         }

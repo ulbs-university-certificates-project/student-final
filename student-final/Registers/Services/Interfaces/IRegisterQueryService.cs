@@ -4,7 +4,7 @@ namespace student_final.Registers.Services.Interfaces;
 
 public interface IRegisterQueryService
 {
-    IEnumerable<CertificateObject> GetCertificates();
+    IEnumerable<Certificate> GetCertificates();
 
-    CertificateObject GetCertificateByNrAdeverinta(int nrAdeverinta);
+    Certificate GetCertificateByNrAdeverinta(int nrAdeverinta);
 }

@@ -5,5 +5,5 @@ namespace student_final.Registers.Services.Interfaces;
 
 public interface IRegisterCommandService
 {
-    Task<CertificateObject> RequestCertificate(CertificateRequest request);
+    Task<Certificate> RequestCertificate(CertificateRequest request);
 }

@@ -1,6 +1,6 @@
 namespace student_final.Registers.Models;
 
-public class CertificateObject
+public class Certificate
 {
     public int NrAdeverinta { get; set; }
     public DateTime Data { get; set; }

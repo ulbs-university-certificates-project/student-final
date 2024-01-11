@@ -18,8 +18,13 @@ public static class Constants
     public const string CERTIFICATE_DELETED = "Certificate successfully deleted.";
     public const string CERTIFICATE_UPDATED = "Certificate successfully updated.";
     
+    // QR CODES
+    public const string QR_CODE_CREATED = "QR Code successfully created.";
+    public const string QR_CODE_DELETED = "QR Code successfully deleted.";
+    
     // PATHS
     public const string EXCEL_REGISTER_PATH = @"D:\mycode\asp.net\student-final\student-final\Registers\register.xlsx";
+    public const string QR_OUTPUT_PATH = @"D:\mycode\asp.net\student-final\student-final\QR\Generated\";
     
     // DATE FORMATS
     public const string DATE_FORMAT = "dd/MM/yyyy";

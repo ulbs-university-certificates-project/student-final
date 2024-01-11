@@ -14,9 +14,9 @@ public class RegisterQueryService : IRegisterQueryService
         _register = register;
     }
 
-    public IEnumerable<CertificateObject> GetCertificates()
+    public IEnumerable<Certificate> GetCertificates()
     {
-        IEnumerable<CertificateObject> certificates = _register.GetCertificates();
+        IEnumerable<Certificate> certificates = _register.GetCertificates();
         
         if (certificates.Count() == 0)
         {
@@ -26,9 +26,9 @@ public class RegisterQueryService : IRegisterQueryService
         return certificates;
     }
 
-    public CertificateObject GetCertificateByNrAdeverinta(int nrAdeverinta)
+    public Certificate GetCertificateByNrAdeverinta(int nrAdeverinta)
     {
-        CertificateObject certificate = _register.GetCertificateByNrAdeverinta(nrAdeverinta);
+        Certificate certificate = _register.GetCertificateByNrAdeverinta(nrAdeverinta);
 
         if (certificate == null)
         {

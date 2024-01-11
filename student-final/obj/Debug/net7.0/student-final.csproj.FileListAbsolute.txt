@@ -96,7 +96,6 @@ D:\mycode\asp.net\student-final\student-final\obj\Debug\net7.0\refint\student-fi
 D:\mycode\asp.net\student-final\student-final\obj\Debug\net7.0\student-final.pdb
 D:\mycode\asp.net\student-final\student-final\obj\Debug\net7.0\student-final.genruntimeconfig.cache
 D:\mycode\asp.net\student-final\student-final\obj\Debug\net7.0\ref\student-final.dll
-D:\mycode\asp.net\student-final\student-final\obj\Debug\net7.0\student-final.sourcelink.json
 D:\mycode\asp.net\student-final\student-final\bin\Debug\net7.0\EPPlus.dll
 D:\mycode\asp.net\student-final\student-final\bin\Debug\net7.0\EPPlus.Interfaces.dll
 D:\mycode\asp.net\student-final\student-final\bin\Debug\net7.0\EPPlus.System.Drawing.dll
@@ -105,3 +104,6 @@ D:\mycode\asp.net\student-final\student-final\bin\Debug\net7.0\System.Security.C
 D:\mycode\asp.net\student-final\student-final\bin\Debug\net7.0\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
 D:\mycode\asp.net\student-final\student-final\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
 D:\mycode\asp.net\student-final\student-final\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Security.Cryptography.Pkcs.dll
+D:\mycode\asp.net\student-final\student-final\bin\Debug\net7.0\Newtonsoft.Json.dll
+D:\mycode\asp.net\student-final\student-final\bin\Debug\net7.0\zxing.dll
+D:\mycode\asp.net\student-final\student-final\bin\Debug\net7.0\ZXing.Windows.Compatibility.dll

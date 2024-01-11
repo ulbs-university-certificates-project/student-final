@@ -1,6 +1,8 @@
 using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using student_final.Data;
+using student_final.QR.Services;
+using student_final.QR.Services.Interfaces;
 using student_final.Registers.Models;
 using student_final.Registers.Services;
 using student_final.Registers.Services.Interfaces;
@@ -53,6 +55,7 @@ builder.Services.AddScoped<IStudentCommandService, StudentCommandService>();
 builder.Services.AddScoped<IStudentQueryService, StudentQueryService>();
 builder.Services.AddScoped<IRegisterQueryService, RegisterQueryService>();
 builder.Services.AddScoped<IRegisterCommandService, RegisterCommandService>();
+builder.Services.AddScoped<IQRCommandService, QRCommandService>();
 
 #endregion
 
