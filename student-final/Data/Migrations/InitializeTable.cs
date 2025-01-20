@@ -7,7 +7,7 @@ public class InitializeTable:Migration
 {
     public override void Up()
     {
-        Create.Table("students")
+        Create.Table("Students")
             .WithColumn("nr_matricol").AsInt32().PrimaryKey().Identity()
             .WithColumn("nume").AsString(128).NotNullable()
             .WithColumn("an").AsInt32().NotNullable()
@@ -16,6 +16,6 @@ public class InitializeTable:Migration
 
     public override void Down()
     {
-        Delete.Table("products");
+        Delete.Table("Students");
     }
 }

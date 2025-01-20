@@ -33,12 +33,6 @@ public static class Constants
     public const string DATE_FORMAT_SLASH = "dd/MM/yyyy";
     public const string DATE_FORMAT_DOT = "dd.MM.yyyy";
     
-    // EMAIL SENDER
-    public const string EMAIL_SMTP_SERVER = "smtp-mail.outlook.com";
-    public const int EMAIL_SMTP_PORT = 587;
-    public const string EMAIL_SENDER_ADDRESS = "ulbsadeverinte@outlook.com";
-    public const string EMAIL_SENDER_PASSWORD = "pa.ro/la";
-    
     // EMAIL CONTROLLER
     public const string EMAIL_SENT = "Email successfully sent!";
 }

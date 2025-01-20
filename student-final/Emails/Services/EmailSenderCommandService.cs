@@ -9,19 +9,28 @@ namespace student_final.Emails.Services;
 public class EmailSenderCommandService : IEmailSenderCommandService
 {
     private SmtpClient _client;
-
+    private string _smtpServer;
+    private int _smtpPort;
+    private string _senderEmail;
+    private string _senderPassword;
+    
     public EmailSenderCommandService()
     {
-        _client = new SmtpClient(Constants.EMAIL_SMTP_SERVER, Constants.EMAIL_SMTP_PORT)
+        _smtpServer = Environment.GetEnvironmentVariable("EMAIL_SMTP_SERVER"); 
+        _smtpPort = int.Parse(Environment.GetEnvironmentVariable("EMAIL_SMTP_PORT") ?? "465");
+        _senderEmail = Environment.GetEnvironmentVariable("EMAIL_SENDER_ADDRESS");
+        _senderPassword = Environment.GetEnvironmentVariable("EMAIL_SENDER_PASSWORD");
+        
+        _client = new SmtpClient(_smtpServer, _smtpPort)
         {
             EnableSsl = true,
-            Credentials = new NetworkCredential(Constants.EMAIL_SENDER_ADDRESS, Constants.EMAIL_SENDER_PASSWORD)
+            Credentials = new NetworkCredential(_senderEmail, _senderPassword),
         };
     }
 
     public async Task SendEmailAsync(string certificateName)
     {
-        MailMessage mail = new MailMessage(from: Constants.EMAIL_SENDER_ADDRESS, to: "qflorescucristian@gmail.com");
+        MailMessage mail = new MailMessage(from: _senderEmail, to: "qflorescucristian@gmail.com");
         mail.Subject = certificateName;
 
         using (Attachment document = new Attachment(Constants.DOCUMENT_OUTPUT_PATH + certificateName))

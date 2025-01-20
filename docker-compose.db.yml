@@ -1,0 +1,13 @@
+volumes:
+  db_data:
+
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: students_api
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
