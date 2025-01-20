@@ -15,7 +15,7 @@ public class CertificatesController : CertificatesApiController
     private IRegisterCommandService _registerCommandService;
     private IEmailSenderCommandService _emailSenderCommandService;
 
-    public CertificatesController(IDocumentsCommandService documentsCommandService, 
+    public CertificatesController(IDocumentsCommandService documentsCommandService,
         IRegisterCommandService registerCommandService,
         IEmailSenderCommandService emailSenderCommandService)
     {
@@ -28,9 +28,9 @@ public class CertificatesController : CertificatesApiController
     {
         Certificate certificate = await _registerCommandService.RequestCertificate(request);
         string certificateName = _documentsCommandService.CreateCertificateDocument(certificate);
-        
+
         await _emailSenderCommandService.SendEmailAsync(certificateName);
-        _documentsCommandService.DeleteCertificateDocument(certificateName);
+        // _documentsCommandService.DeleteCertificateDocument(certificateName);
         return Ok(Constants.EMAIL_SENT);
     }
 }
