@@ -1,0 +1,31 @@
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  db_data:  
+
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: students_api
+    networks:
+      - mynetwork
+    ports:
+      - "3308:3306"
+    volumes:
+      - db_data:/var/lib/mysql 
+  webapp:
+    image: florescucristian/student-final-api:latest
+    networks:
+      - mynetwork
+    ports:
+      - "8000:80"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__Default: "Server=mysql;Database=students_api;User=root;Password=root;SslMode=None;AllowPublicKeyRetrieval=True"
+    depends_on:
+      - mysql
+    restart: unless-stopped
