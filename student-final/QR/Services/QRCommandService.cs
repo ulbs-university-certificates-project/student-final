@@ -15,7 +15,7 @@ namespace student_final.QR.Services;
 public class QRCommandService : IQRCommandService
 {
     private BarcodeWriter<Bitmap> _writer;
-    
+
     public QRCommandService()
     {
         QrCodeEncodingOptions options = new QrCodeEncodingOptions
@@ -36,24 +36,24 @@ public class QRCommandService : IQRCommandService
     public string GenerateAndSaveQRCode(Certificate certificate)
     {
         string jsonString = JsonConvert.SerializeObject(certificate);
-        
+
         Bitmap qrCode = _writer.WriteAsBitmap(jsonString);
         string qrName = GenerateRandomQRName();
-        
-        qrCode.Save(Constants.QR_OUTPUT_PATH + qrName);
+
+        qrCode.Save(Constants.BASE_PATH + @"QR\Generated\" + qrName);
         return qrName;
     }
 
     public void DeleteQRCode(string qrName)
     {
-        File.Delete(Constants.QR_OUTPUT_PATH + qrName);
+        File.Delete(Constants.BASE_PATH + @"QR\Generated\" + qrName);
     }
 
     private string GenerateRandomQRName()
     {
         Random random = new Random();
         const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        
+
         char[] randomChars = new char[12];
         string name;
 
@@ -67,7 +67,7 @@ public class QRCommandService : IQRCommandService
             name = new string(randomChars);
             name += ".png";
 
-        } while (File.Exists(Constants.QR_OUTPUT_PATH + name));
+        } while (File.Exists(Constants.BASE_PATH + @"QR\Generated\" + name));
 
         return name;
     }

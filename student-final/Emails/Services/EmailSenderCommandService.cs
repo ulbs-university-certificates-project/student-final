@@ -13,14 +13,14 @@ public class EmailSenderCommandService : IEmailSenderCommandService
     private int _smtpPort;
     private string _senderEmail;
     private string _senderPassword;
-    
+
     public EmailSenderCommandService()
     {
-        _smtpServer = Environment.GetEnvironmentVariable("EMAIL_SMTP_SERVER"); 
-        _smtpPort = int.Parse(Environment.GetEnvironmentVariable("EMAIL_SMTP_PORT") ?? "465");
+        _smtpServer = Environment.GetEnvironmentVariable("EMAIL_SMTP_SERVER");
+        _smtpPort = int.Parse(Environment.GetEnvironmentVariable("EMAIL_SMTP_PORT"));
         _senderEmail = Environment.GetEnvironmentVariable("EMAIL_SENDER_ADDRESS");
         _senderPassword = Environment.GetEnvironmentVariable("EMAIL_SENDER_PASSWORD");
-        
+
         _client = new SmtpClient(_smtpServer, _smtpPort)
         {
             EnableSsl = true,
@@ -33,10 +33,10 @@ public class EmailSenderCommandService : IEmailSenderCommandService
         MailMessage mail = new MailMessage(from: _senderEmail, to: "qflorescucristian@gmail.com");
         mail.Subject = certificateName;
 
-        using (Attachment document = new Attachment(Constants.DOCUMENT_OUTPUT_PATH + certificateName))
+        using (Attachment document = new Attachment(Constants.BASE_PATH + @"Documents\Generated\" + certificateName))
         {
             mail.Attachments.Add(document);
-            
+
             await _client.SendMailAsync(mail);
         }
     }

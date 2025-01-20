@@ -15,25 +15,25 @@ public class DocumentsCommandService : IDocumentsCommandService
     {
         _qrCommandService = qrCommandService;
     }
-    
+
     public string CreateCertificateDocument(Certificate certificate)
     {
         string certificateName = CreateUninterpolatedCertificateAfterTemplate(certificate.Nume);
         string qrName = _qrCommandService.GenerateAndSaveQRCode(certificate);
-        
+
         InterpolateTemplate(certificateName, qrName, certificate);
         _qrCommandService.DeleteQRCode(qrName);
 
         return certificateName;
     }
-    
+
     public void DeleteCertificateDocument(string certificateName)
     {
-        File.Delete(Constants.DOCUMENT_OUTPUT_PATH + certificateName);
+        File.Delete(Constants.BASE_PATH + @"Documents\Generated\" + certificateName);
     }
-    
+
     #region PRIVATE_METHODS
-    
+
     private void InterpolateTemplate(string certificateName, string qrName, Certificate certificate)
     {
         Dictionary<string, string> fieldMap = new Dictionary<string, string>
@@ -46,7 +46,7 @@ public class DocumentsCommandService : IDocumentsCommandService
             { "MOTIV", $"{certificate.Motiv}" }
         };
 
-        using (DocX document = DocX.Load(Constants.DOCUMENT_OUTPUT_PATH + certificateName))
+        using (DocX document = DocX.Load(Constants.BASE_PATH + @"Documents\Generated\" + certificateName))
         {
             // Replacing fields (nr. adeverinta, nume, etc.)
             foreach (Paragraph paragraph in document.Paragraphs)
@@ -58,32 +58,32 @@ public class DocumentsCommandService : IDocumentsCommandService
                         SearchValue = $"[{field}]",
                         NewValue = fieldMap.GetValueOrDefault(field)
                     };
-                    
+
                     // Using StringReplaceTextOptions because ReplaceText() with multiple parameters is obsolete.
                     paragraph.ReplaceText(options);
                 }
             }
-        
+
             // Inserting QR Code
             var qrParagraph = document.Paragraphs.FirstOrDefault(p => p.Text.Contains("[QR]"))!;
-        
+
             qrParagraph.RemoveText(0); // 0 = Starting index (Removes (text length - index) characters)
-        
-            Image image = document.AddImage(Constants.QR_OUTPUT_PATH + qrName);
+
+            Image image = document.AddImage(Constants.BASE_PATH + @"QR\Generated\" + qrName);
             Picture picture = image.CreatePicture(100, 100);
-        
+
             qrParagraph.InsertPicture(picture);
-        
+
             // Saving and closing document
-            document.SaveAs(Constants.DOCUMENT_OUTPUT_PATH + certificateName);
+            document.SaveAs(Constants.BASE_PATH + @"Documents\Generated\" + certificateName);
         }
     }
-    
+
     private string CreateUninterpolatedCertificateAfterTemplate(string studentName)
     {
         string certificateName = GenerateDocumentName(studentName);
-        
-        File.Copy(Constants.DOCUMENT_TEMPLATE, Constants.DOCUMENT_OUTPUT_PATH + certificateName);
+
+        File.Copy(Constants.BASE_PATH + @"Documents\Templates\certificate-template.docx", Constants.BASE_PATH + @"Documents\Generated\" + certificateName);
 
         return certificateName;
     }
@@ -91,8 +91,8 @@ public class DocumentsCommandService : IDocumentsCommandService
     private string GenerateDocumentName(string studentName)
     {
         string certificateName = $"Certificate - {studentName}.docx";
-        
-        if (!File.Exists(Constants.DOCUMENT_OUTPUT_PATH + certificateName)) 
+
+        if (!File.Exists(Constants.BASE_PATH + @"Documents\Generated\" + certificateName))
             return certificateName;
 
         int index = 1;
@@ -100,10 +100,10 @@ public class DocumentsCommandService : IDocumentsCommandService
         {
             certificateName = $"Certificate - {studentName} ({index}).docx";
             index++;
-        } while (File.Exists(Constants.DOCUMENT_OUTPUT_PATH + certificateName));
-        
+        } while (File.Exists(Constants.BASE_PATH + @"Documents\Generated\" + certificateName));
+
         return certificateName;
     }
-    
+
     #endregion
 }
